@@ -1,68 +1,67 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;
   font-weight: 600;
   font-style: normal;
-  font-variation-settings:
-    "wdth" 100;
-    font-size: xx-large;
+  font-variation-settings: "wdth" 100;
+  font-size: xx-large;
 }
-
 body {
-
-
+  display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   background-color: hsl(215, 60%, 33%);
 }
 .game-container {
-  background-color: hsla(215, 60%, 33%, 0);
+  background-color: transparent;
   height: 600px;
   width: 600px;
-  margin-left: 100px;
   display: grid;
-  grid-template-columns: repeat(3, 200px);
-  grid-template-rows: repeat(3, 200px);
-
-  margin: 0 auto;
-  margin-top: 40px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1em;
+  margin: 40px auto 0;
   border-radius: 8px;
-  grid-gap: 1em;
-
-  border-width: 5px;
 }
 .smooth {
   height: 500px;
   width: 500px;
   position: fixed;
   background-color: hsla(277, 90%, 65%, 0.507);
-
   box-shadow: 2px 2px 4px hsla(277, 70%, 60%, 0.911);
-
   right: 520px;
   top: 100px;
-
   z-index: 0;
-  margin: 0 auto;
 }
-
-div {
+.smooth2 {
+  height: 500px;
+  width: 500px;
+  position: fixed;
+  background-color: hsla(277, 90%, 65%, 0.507);
+  box-shadow: 2px 2px 4px hsla(277, 70%, 60%, 0.911);
+  left: 520px;
+  bottom: 100px;
+  z-index: 0;
+}
+.game-container div {
   background-color: antiquewhite;
   border-radius: 8px;
   transition: 0.3s;
   z-index: 10;
-  text-align: center;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  line-height: 200px;
+  line-height: normal;
 }
 .ah:hover {
   background-color: hsla(277, 98%, 62%, 0.493);
-  box-shadow: 2px 2px 2px hsla(277, 78%, 67%, 0.772);;
+  box-shadow: 2px 2px 2px hsla(277, 78%, 67%, 0.772);
 }
 .ah:active {
   background-color: hsla(277, 84%, 71%, 0.493);
 }
-

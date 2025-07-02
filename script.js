@@ -1,113 +1,77 @@
-var x = true ;
-var matrix = [
-    
-    
-];
+var x = true;
+var matrix = [];
 var matrixx = [];
 var matrixo = [];
-
-var one = document.getElementById("1");
-var two = document.getElementById("2");
-var three = document.getElementById("3");
-var four = document.getElementById("4");     
-var five = document.getElementById("5");
-var six = document.getElementById("6");
-var seven = document.getElementById("7");
-var eight = document.getElementById("8");
-var nine = document.getElementById("9");
-
-nine.addEventListener("click", function(){check(nine);
-checkvictory();
+var cells = {
+  one: document.getElementById("1"),
+  two: document.getElementById("2"),
+  three: document.getElementById("3"),
+  four: document.getElementById("4"),
+  five: document.getElementById("5"),
+  six: document.getElementById("6"),
+  seven: document.getElementById("7"),
+  eight: document.getElementById("8"),
+  nine: document.getElementById("9"),
+};
+Object.values(cells).forEach((cell) => {
+  cell.addEventListener("click", function () {
+    check(cell);
+    checkvictory();
+  });
 });
-one.addEventListener("click", function(){check(one);
-checkvictory();
-});
-two.addEventListener("click", function(){check(two);
-checkvictory();
-});  
-three.addEventListener("click", function(){check(three);
-checkvictory();
-});
-four.addEventListener("click", function(){check(four);
-checkvictory();
-});
-five.addEventListener("click", function(){check(five);
-checkvictory();
-});
-six.addEventListener("click", function(){check(six);
-checkvictory();
-});
-seven.addEventListener("click", function(){check(seven);
-checkvictory();
-});
-eight.addEventListener("click", function(){check(eight);
-checkvictory();
-});
-
-
-
-
-function check(number){
-     matrix.push(number);
-    if(x){
-       
-   matrixx.push(number);
-
-        number.innerText = "X" ;
-    }else{
-         matrixo.push(number);
-        number.innerText = "O";
-    }
-
-
-x = !x ;
-
-
-
+function check(number) {
+  if (number.innerText === "X" || number.innerText === "O") return;
+  matrix.push(number);
+  if (x) {
+    matrixx.push(number);
+    number.innerText = "X";
+  } else {
+    matrixo.push(number);
+    number.innerText = "O";
+  }
+  x = !x;
 }
-function reset(){
-    one.innerText = "1" ;
-    two.innerText = "2" ;
-    three.innerText = "3" ;
-    four.innerText = "4" ;
-    five.innerText = "5" ;
-    six.innerText = "6" ;
-    seven.innerText = "7" ;
-    eight.innerText = "8" ;
-    nine.innerText = "9" ;   
-    x = true ;
-    matrix = [];
-    matrixx = [];
-    matrixo = [];
-    
+function reset() {
+  // Reset all cells
+  Object.values(cells).forEach((cell, index) => {
+    cell.innerText = (index + 1).toString();
+  });
+  x = true;
+  matrix = [];
+  matrixx = [];
+  matrixo = [];
 }
-
-function checkvictory(){
-
-
-    if((matrixx.includes(one) && matrixx.includes(two) && matrixx.includes(three)) ||
-       (matrixx.includes(four) && matrixx.includes(five) && matrixx.includes(six)) ||
-       (matrixx.includes(seven) && matrixx.includes(eight) && matrixx.includes(nine)) ||
-       (matrixx.includes(one) && matrixx.includes(four) && matrixx.includes(seven)) ||
-       (matrixx.includes(two) && matrixx.includes(five) && matrixx.includes(eight)) ||
-       (matrixx.includes(three) && matrixx.includes(six) && matrixx.includes(nine)) ||
-       (matrixx.includes(one) && matrixx.includes(five) && matrixx.includes(nine)) ||
-       (matrixx.includes(three) && matrixx.includes(five) && matrixx.includes(seven))){
-        alert("X wins");
-        reset();
-    }
-
-   if((matrixo.includes(one) && matrixo.includes(two) && matrixo.includes(three)) ||
-       (matrixo.includes(four) && matrixo.includes(five) && matrixo.includes(six)) ||
-       (matrixo.includes(seven) && matrixo.includes(eight) && matrixo.includes(nine)) ||
-       (matrixo.includes(one) && matrixo.includes(four) && matrixo.includes(seven)) ||
-       (matrixo.includes(two) && matrixo.includes(five) && matrixo.includes(eight)) ||
-       (matrixo.includes(three) && matrixo.includes(six) && matrixo.includes(nine)) ||
-       (matrixo.includes(one) && matrixo.includes(five) && matrixo.includes(nine)) ||
-       (matrixo.includes(three) && matrixo.includes(five) && matrixo.includes(seven))){
-        alert("O wins");
-        reset();
-    }}
-
-
-   
+function checkvictory() {
+  const winningCombinations = [
+    [cells.one, cells.two, cells.three],
+    [cells.four, cells.five, cells.six],
+    [cells.seven, cells.eight, cells.nine],
+    [cells.one, cells.four, cells.seven],
+    [cells.two, cells.five, cells.eight],
+    [cells.three, cells.six, cells.nine],
+    [cells.one, cells.five, cells.nine],
+    [cells.three, cells.five, cells.seven],
+  ];
+  if (
+    winningCombinations.some((combo) =>
+      combo.every((cell) => matrixx.includes(cell))
+    )
+  ) {
+    alert("X wins");
+    reset();
+    return;
+  }
+  if (
+    winningCombinations.some((combo) =>
+      combo.every((cell) => matrixo.includes(cell))
+    )
+  ) {
+    alert("O wins");
+    reset();
+    return;
+  }
+  if (matrix.length === 9) {
+    alert("Draw!");
+    reset();
+  }
+}
